@@ -8,6 +8,6 @@
     <title>{{config('app.name','ParcInformatique')}}</title>
 </head>
 <body>
-<h3>Consulter les services</h3>
+    @yield('content')
 </body>
 </html>
