@@ -21,7 +21,23 @@ Route::get('/consulter_services', 'ConsulterServicesController@index');
 Route::get('/consulter_services/TableauxDeBords', 'ConsulterServicesController@TableauxDeBords');
 Route::get('/consulter_services/Statistiques', 'ConsulterServicesController@Statistiques');
 Route::get('/gerer_utilisateurs', 'GererUtilisateursController@index');
-Route::get('/gerer_utilisateurs/Ajout', 'GererUtilisateursController@Ajout');
+
 Route::get('/gerer_utilisateurs/Modifier', 'GererUtilisateursController@Modifier');
 Route::get('/gerer_utilisateurs/Supprimer', 'GererUtilisateursController@Supprimer');
 Route::get('/gerer_utilisateurs/Historique', 'GererUtilisateursController@Historique');
+
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+Route::get('/gerer_utilisateurs/Ajout', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+Route::get('/home', 'HomeController@index')->name('home');
