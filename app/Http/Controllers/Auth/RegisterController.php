@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
+use App\Personnel;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -67,4 +68,23 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    public function showRegistrationForm()
+    {
+        $personnels=Personnel::orderBy('nom')->get();
+        return view('utilisateurs.ajout')->with('personnels',$personnels);
+    }
+    public function register(Request $request)
+    {
+        $personnel=Personnel::find($request->personnel);
+        $username=$personnel->nom."_".$personnel->prenom;
+        $password=str_random(8);
+        for($i=1;$i<7;$i++)
+        {
+            $droit=$request->{"droit".$i};
+            echo $droit;
+        }
+
+     return $request;
+    }
+
 }
