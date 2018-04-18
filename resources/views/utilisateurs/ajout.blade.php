@@ -6,7 +6,7 @@
          {{Form::label('personnel','Choisir un personnel')}}<br>
          <div class="col-sm-2">
          <select class="form-control input-sm" name="personnel" >
-             <option selected="selected" value="0">
+             <option selected="selected" value="">
 
              </option>
              @foreach($personnels as $personnel)

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Droit;
 use Illuminate\Http\Request;
 use App\Personnel;
 use App\User;
@@ -50,8 +51,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed',
+            'personnel' => 'required|string|max:255',
         ]);
     }
 
@@ -75,16 +75,46 @@ class RegisterController extends Controller
     }
     public function register(Request $request)
     {
+        $finalrequest=array();
+        $this->validator($request->all())->validate();
         $personnel=Personnel::find($request->personnel);
         $username=$personnel->nom."_".$personnel->prenom;
-        $password=str_random(8);
+        $user=new User();
+        $test=$user->where('username',$username)->first();
+        if($test){$username=$username."_".$test->id;}
+        $finalrequest['username']=$username;
+        $finalrequest['password']=str_random(8);
+        $finalrequest['id_personnel']=$request->personnel;
         for($i=1;$i<7;$i++)
         {
             $droit=$request->{"droit".$i};
-            echo $droit;
+            if($droit)
+            {
+                $finalrequest[$i]=1;
+            }
+            else
+                {$finalrequest[$i]=0;}
         }
 
-     return $request;
+     return view('utilisateurs.finalajout')->with('finalrequest',$finalrequest);
+    }
+    public function finalregister(Request $request)
+    {
+        $user=new User();
+        $user->username=$request->username;
+        $user->password=bcrypt($request->password);
+        $user->personnel()->associate($request->id_personnel);
+        $user->save();
+        $droit=new Droit();
+        for($i=1;$i<7;$i++)
+        {
+            if($request->{"droit".$i}){
+                $droitx=$droit->where('id',$i)->first();
+                $user->droits()->attach($droitx);
+            }
+        }
+
+        return redirect(url('gerer_utilisateurs/Ajout'))->with('success','Ajout effectué avec succés');
     }
 
 }

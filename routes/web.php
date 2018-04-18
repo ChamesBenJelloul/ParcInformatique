@@ -32,7 +32,8 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
 Route::get('/gerer_utilisateurs/Ajout', 'Auth\RegisterController@showRegistrationForm')->name('register')->middleware('role:ADMIN')->middleware('auth');
-Route::post('register', 'Auth\RegisterController@register');
+Route::post('/gerer_utilisateurs/Ajout/Final', 'Auth\RegisterController@register')->name('register')->middleware('role:ADMIN')->middleware('auth');;
+Route::post('finalregister', 'Auth\RegisterController@finalregister');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
