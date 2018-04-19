@@ -14,7 +14,7 @@
              @endforeach
          </select>
          </div>
-         {{Form::label('droit','Assigne les droits')}}<br>
+         <b>{{Form::label('droit','Assigne les droits')}}</b><br>
          <table>
              <tr><td>Gérer les équipements</td><td>Consulter les services</td></tr>
              <tr>

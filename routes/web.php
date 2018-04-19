@@ -41,4 +41,8 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+Route::post('/gerer_utilisateurs/Modifier/Final','GererUtilisateursController@modifierForm');
+Route::post('finalModifier','GererUtilisateursController@finalModifier');
+Route::delete('/gerer_utilisateurs/Supprimer/{user}');
+
 Route::get('/home', 'HomeController@index')->name('home');

@@ -95,7 +95,8 @@ class RegisterController extends Controller
             else
                 {$finalrequest[$i]=0;}
         }
-
+        $test2=$user->where('personnel_id',$request->personnel)->first();
+        if($test2){return redirect(url('gerer_utilisateurs/Ajout'))->with('error','Un compte utilisateur existe déjà pour cette personne');}
      return view('utilisateurs.finalajout')->with('finalrequest',$finalrequest);
     }
     public function finalregister(Request $request)
@@ -113,7 +114,6 @@ class RegisterController extends Controller
                 $user->droits()->attach($droitx);
             }
         }
-
         return redirect(url('gerer_utilisateurs/Ajout'))->with('success','Ajout effectué avec succés');
     }
 
