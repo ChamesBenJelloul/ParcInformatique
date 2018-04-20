@@ -43,6 +43,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::post('/gerer_utilisateurs/Modifier/Final','GererUtilisateursController@modifierForm');
 Route::post('finalModifier','GererUtilisateursController@finalModifier');
-Route::delete('/gerer_utilisateurs/Supprimer/{user}');
+Route::post('finalSupprimer','GererUtilisateursController@finalSupprimer');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -62,7 +62,14 @@ class GererUtilisateursController extends Controller
         return redirect(url('/gerer_utilisateurs/Modifier'))->with('success','Modification effectué avec succés');
     }
     public function Supprimer(){
-        return view('utilisateurs.supprimer');
+        $users= User::has('Droits', '<=',6)->orderBy('username')->get();
+        return view('utilisateurs.supprimer')->with('users',$users);
+    }
+    public function finalSupprimer(Request $request){
+        $user=User::find($request->utilisateur);
+        $user->droits()->detach();
+        $user->delete();
+        return redirect('/gerer_utilisateurs/Supprimer')->with('success','Suppression effectué avec succés');
     }
     public function Historique(){
         return view('utilisateurs.historique');
