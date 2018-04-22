@@ -14,9 +14,12 @@
 Route::get('/', function (){return redirect('/home');});
 Route::get('/gerer_equipements', 'GererEquipementsController@index')->middleware('auth');
 Route::get('/gerer_equipements/Ajout', 'GererEquipementsController@Ajout')->middleware('role:AJOUT EQUIPEMENT')->middleware('auth');
-Route::get('/gerer_equipements/Modifier', 'GererEquipementsController@Modifier')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth');
+Route::post('store','GererEquipementsController@store')->middleware('role:AJOUT EQUIPEMENT')->middleware('auth');;
 Route::get('/gerer_equipements/Consulter', 'GererEquipementsController@Consulter')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
-Route::get('/gerer_equipements/Supprimer', 'GererEquipementsController@Supprimer')->middleware('role:SUPPRIMER EQUIPEMENT')->middleware('auth');
+Route::get('/gerer_equipements/Consulter/{equipement}','GererEquipementsController@show')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
+Route::get('/gerer_equipements/Consulter/{equipement}/Modifier', 'GererEquipementsController@Modifier')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth');
+Route::put('update','GererEquipementsController@update')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth');;
+Route::delete('destroy', 'GererEquipementsController@destroy')->middleware('role:SUPPRIMER EQUIPEMENT')->middleware('auth');
 Route::get('/consulter_services', 'ConsulterServicesController@index')->middleware('auth');
 Route::get('/consulter_services/TableauxDeBords', 'ConsulterServicesController@TableauxDeBords')->middleware('role:TABLEAUX DE BORDS')->middleware('auth');
 Route::get('/consulter_services/Statistiques', 'ConsulterServicesController@Statistiques')->middleware('role:STATISTIQUES')->middleware('auth');
