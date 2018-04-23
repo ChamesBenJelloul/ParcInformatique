@@ -46,7 +46,7 @@ class GererUtilisateursController extends Controller
         {
             $user2=User::where('username',$request->username)->first();
             if($user2){
-                return redirect(url('/gerer_utilisateurs/Modifier'))->with('error','username deja existe');
+                return redirect(url('/gerer_utilisateurs/Modifier'))->with('error','username existe déjà');
             }
             $user->username=$request->username;
         }

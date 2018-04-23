@@ -6,6 +6,7 @@ use App\Droit;
 use App\Equipement;
 use App\Historique;
 use App\Personnel;
+use App\User;
 use Illuminate\Http\Request;
 
 class GererEquipementsController extends Controller
@@ -32,7 +33,8 @@ class GererEquipementsController extends Controller
     }
     public function consulter()
     {
-        //
+        $equipements=Equipement::where('ConfirmerParAdmin','1')->get();
+        return view('equipements.consulter')->with('equipements',$equipements);
     }
     /**
      * Store a newly created resource in storage.
@@ -42,6 +44,8 @@ class GererEquipementsController extends Controller
      */
     public function store(Request $request)
     {
+        $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->first();
+        if($equipementExisteDeja){return redirect(url('/gerer_equipements/Ajout'))->with('error','Equipement existe déjà');}
         $equipement=new Equipement();
         $equipement["Numéro de série"]=$request->Numéro_de_série;
         $equipement["code patrimoine"]=$request->code_patrimoine;
@@ -53,9 +57,14 @@ class GererEquipementsController extends Controller
         $equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;
         $personnel=Personnel::find($request->personnel);
         $equipement->personnel()->associate($personnel);
-        //if(auth()->user()->id) //test sur admin //equipement existe deja? //relationships between user persoonel equipement historique
-        $equipement->ConfirmerParAdmin=false;
+        //equipement existe deja? //relationships between user persoonel equipement historique
+        $user=User::find(auth()->user()->id);
+        if($user->isAdmin())
+        {$equipement->ConfirmerParAdmin=true;}
+        else{$equipement->ConfirmerParAdmin=false;}
         $equipement->save();
+        if(!$user->isAdmin())
+        {
         $historique=new Historique();
         $testEquipement=new Equipement();
         $historique->action='Ajout';
@@ -66,6 +75,8 @@ class GererEquipementsController extends Controller
         $historique->bon_num=$request->Bon_de_sortie_d’immobilisation;
         $historique->ConfirmerParAdmin=false;
         $historique->save();
+        }
+
         return redirect(url('/gerer_equipements/Ajout'))->with('success','Ajout effectué avec succés');
     }
 
@@ -77,7 +88,10 @@ class GererEquipementsController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Equipement::find($id)==null){return redirect(url('/gerer_equipements/Consulter'))->with('error','Equipement non trouvé');}
+        $equipement=Equipement::find($id)->first();
+
+        return view('equipements.show')->with('equipement',$equipement)->with('personnel',$equipement->personnel);
     }
 
     /**

@@ -14,8 +14,8 @@
               {{Form::label('type','type')}}    {{Form::text('type')}}<br>
               {{Form::label('code du marché','code du marché')}}    {{Form::text('code_du_marché')}}<br>
               {{Form::label('numéro contrat de maintenance','numéro contrat de maintenance')}}    {{Form::text('numéro_contrat_de_maintenance')}}<br>
-              {{Form::label('Contrat de maintenance détaillé','Contrat de maintenance détaillé')}}    {{Form::text('Contrat_de_maintenance_détaillé')}}<br>
-            {{Form::label('personnel','Choisir un personnel')}}
+              {{Form::label('Contrat de maintenance détaillé','Contrat de maintenance détaillé')}}    {{Form::textarea('Contrat_de_maintenance_détaillé')}}<br>
+            {{Form::label('personnel',"Choisir l'occupant")}}
             <div class="col-sm-2">
             <select class="form-control input-sm" name="personnel" >
                 <option selected="selected" value="">

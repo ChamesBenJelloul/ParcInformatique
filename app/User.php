@@ -32,6 +32,9 @@ class User extends Authenticatable
     public function personnel(){
         return $this->belongsTo('App\Personnel');
     }
+    public function historiques(){
+        return $this->hasMany('App\Historique');
+    }
     public function hasAnyRole($roles){
      if(is_array($roles)){
          foreach ($roles as $role){
@@ -51,6 +54,16 @@ class User extends Authenticatable
     public function hasRole($role){
         if($this->droits()->where('nom',$role)->first()){
             return true;
+        }
+        return false;
+    }
+
+    public function isAdmin(){
+
+        $admins=User::has('Droits',7)->get();
+        foreach ($admins as $admin){
+            if($this==$admin)
+            { return true;}
         }
         return false;
     }

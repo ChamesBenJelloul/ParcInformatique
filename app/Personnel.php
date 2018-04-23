@@ -13,4 +13,7 @@ class Personnel extends Model
     public function user(){
         return $this->hasOne('App\User');
     }
+    public function historiques(){
+        return $this->hasMany('App\Historique');
+    }
 }

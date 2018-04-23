@@ -9,4 +9,7 @@ class Equipement extends Model
     public function personnel(){
         return $this->belongsTo('App\Personnel');
     }
+    public function historiques(){
+        return $this->hasMany('App\Historique');
+    }
 }
