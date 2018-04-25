@@ -44,6 +44,15 @@ class GererEquipementsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'Numéro_de_série' => 'required',
+            'code_patrimoine' => 'required',
+            'nom' => 'required',
+            'marque' => 'required',
+            'type' => 'required',
+            'code_du_marché' => 'required',
+            'personnel' => 'required',
+        ]);
         $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->first();
         if($equipementExisteDeja){return redirect(url('/gerer_equipements/Ajout'))->with('error','Equipement existe déjà');}
         $equipement=new Equipement();
@@ -57,7 +66,6 @@ class GererEquipementsController extends Controller
         $equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;
         $personnel=Personnel::find($request->personnel);
         $equipement->personnel()->associate($personnel);
-        //equipement existe deja? //relationships between user persoonel equipement historique
         $user=User::find(auth()->user()->id);
         if($user->isAdmin())
         {$equipement->ConfirmerParAdmin=true;}
@@ -76,9 +84,11 @@ class GererEquipementsController extends Controller
         $historique->ConfirmerParAdmin=false;
         $historique->save();
         }
-
-        return redirect(url('/gerer_equipements/Ajout'))->with('success','Ajout effectué avec succés');
-    }
+      if($user->isAdmin()) {
+          return redirect(url('/gerer_equipements/Ajout'))->with('success', 'Ajout effectué avec succés');
+      }
+        return redirect(url('/gerer_equipements/Ajout'))->with('success',"Votre demande d'ajout est envoyée au administrateur pour la confirmation");
+        }
 
     /**
      * Display the specified resource.
@@ -89,8 +99,8 @@ class GererEquipementsController extends Controller
     public function show($id)
     {
         if(Equipement::find($id)==null){return redirect(url('/gerer_equipements/Consulter'))->with('error','Equipement non trouvé');}
-        $equipement=Equipement::find($id)->first();
-
+        $equipement=Equipement::find($id);
+        if(!$equipement->isConfirmerParAdmin()){return redirect(url('/gerer_equipements/Consulter'))->with('error','Equipement non trouvé');}
         return view('equipements.show')->with('equipement',$equipement)->with('personnel',$equipement->personnel);
     }
 
@@ -102,7 +112,12 @@ class GererEquipementsController extends Controller
      */
     public function modifier($id)
     {
-        //
+        $equipement=Equipement::find($id);
+        $personnels=Personnel::all();
+        if(!$equipement->ConfirmerParAdmin){
+            return redirect(url('/gerer_equipements/Consulter'))->with('error','Equipement non trouvé');
+        }
+        return view('equipements.modifier')->with('equipement',$equipement)->with('personnels',$personnels);
     }
 
     /**
@@ -114,7 +129,67 @@ class GererEquipementsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'Numéro_de_série' => 'required',
+            'code_patrimoine' => 'required',
+            'nom' => 'required',
+            'marque' => 'required',
+            'type' => 'required',
+            'code_du_marché' => 'required',
+            'personnel' => 'required',
+        ]);
+        $user=User::find(auth()->user()->id);
+        if($user->isAdmin()){$equipement=Equipement::find($id);}
+        else{$equipement=new Equipement();}
+        $equipement["Numéro de série"]=$request->Numéro_de_série;
+        $equipement["code patrimoine"]=$request->code_patrimoine;
+        $equipement["nom"]=$request->nom;
+        $equipement["marque"]=$request->marque;
+        $equipement["type"]=$request->type;
+        $equipement["code du marché"]=$request->code_du_marché;
+        $equipement["numéro contrat de maintenance"]=$request->numéro_contrat_de_maintenance;
+        $equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;
+        $personnel=Personnel::find($request->personnel);
+        if($request->personnel==$request->personnel_old) {
+            if (!$user->isAdmin()) {
+                $equipement->personnel()->associate($personnel);
+            }
+        }
+        else {
+            if($user->isAdmin()){
+                $equipement->personnel()->dissociate();
+                $equipement->personnel()->associate($personnel);
+            }
+            elseif ($request->num_bon==null){
+                return redirect(url('/gerer_equipements/Consulter'))->with('error',"Pour modifier l'occupant il faut y avoir le numéro du Bon de transfert d’immobilisation");
+            }
+           else{
+               $equipement->personnel()->associate($personnel);
+           }
+        }
+
+        if($user->isAdmin())
+        {$equipement->ConfirmerParAdmin=true;}
+        else{$equipement->ConfirmerParAdmin=false;}
+        $equipement->save();
+        if(!$user->isAdmin())
+        {
+            $historique=new Historique();
+            $testEquipement=new Equipement();
+            $historique->action='Modification';
+            $historique->personnel_id=$request->personnel;
+            $historique->user_id=auth()->user()->id;
+            $testEquipement2=$testEquipement->where('Numéro de série',$request->Numéro_de_série)->where('ConfirmerParAdmin','0')->first();
+            $historique->equipement_id=$testEquipement2->id;
+            if($request->num_bon==null){$historique->bon_num='0';}
+            else{$historique->bon_num=$request->num_bon;}
+            $historique->ConfirmerParAdmin=false;
+            $historique->save();
+        }
+        if($user->isAdmin()){
+        return redirect(url('/gerer_equipements/Consulter'))->with('success','Modification effectué avec succés');
+        }
+        return redirect(url('/gerer_equipements/Consulter'))->with('success','Votre demande de modification est envoyée au administrateur pour la confirmation');
     }
 
     /**

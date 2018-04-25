@@ -14,8 +14,11 @@
         <tr><td>Contrat de maintenance détaillé</td><td>{{$equipement["Contrat de maintenance détaillé"]}}</td></tr>
         <tr><td>Occupant</td><td>{{$personnel->nom}}</td></tr>
         <tr><td>Ajouté le</td><td>{{$equipement->created_at}}</td></tr>
-
-
     </table>
     </div>
+    <a href="{{$equipement->id}}/Modifier"><button class="btn btn-default" >Modifier</button></a>
+    {!!Form::open(['action' => ['GererEquipementsController@destroy',$equipement->id], 'method' => 'POST' , 'class' => 'pull-right']) !!}
+       {{Form::hidden('_method','DELETE')}}
+       {{Form::submit('Supprimer!',['class' => 'btn btn-danger'])}}
+    {!! Form::close()!!}
 @endsection

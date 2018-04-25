@@ -18,8 +18,8 @@ Route::post('store','GererEquipementsController@store')->middleware('role:AJOUT 
 Route::get('/gerer_equipements/Consulter', 'GererEquipementsController@Consulter')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
 Route::get('/gerer_equipements/Consulter/{equipement}','GererEquipementsController@show')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
 Route::get('/gerer_equipements/Consulter/{equipement}/Modifier', 'GererEquipementsController@Modifier')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth');
-Route::put('update','GererEquipementsController@update')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth');;
-Route::delete('destroy', 'GererEquipementsController@destroy')->middleware('role:SUPPRIMER EQUIPEMENT')->middleware('auth');
+Route::put('/gerer_equipements/Consulter/{equipement}','GererEquipementsController@update')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth')->name('update');
+Route::delete('/gerer_equipements/Consulter/{equipement}', 'GererEquipementsController@destroy')->middleware('role:SUPPRIMER EQUIPEMENT')->middleware('auth')->name('delete');
 Route::get('/consulter_services', 'ConsulterServicesController@index')->middleware('auth');
 Route::get('/consulter_services/TableauxDeBords', 'ConsulterServicesController@TableauxDeBords')->middleware('role:TABLEAUX DE BORDS')->middleware('auth');
 Route::get('/consulter_services/Statistiques', 'ConsulterServicesController@Statistiques')->middleware('role:STATISTIQUES')->middleware('auth');

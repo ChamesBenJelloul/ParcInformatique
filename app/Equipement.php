@@ -12,4 +12,14 @@ class Equipement extends Model
     public function historiques(){
         return $this->hasMany('App\Historique');
     }
+    public function isConfirmerParAdmin()
+    {
+        $equipements=Equipement::where('ConfirmerParAdmin','1')->get();
+        foreach ($equipements as $equipement){
+            if($this==$equipement){
+                return true;
+            }
+        }
+        return false;
+    }
 }
