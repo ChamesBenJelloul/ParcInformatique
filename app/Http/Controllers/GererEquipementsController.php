@@ -200,6 +200,25 @@ class GererEquipementsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Equipement::find($id) == null) {
+            return redirect(url('/gerer_equipements/Consulter'))->with('error', 'Equipement non trouvé');
+        }
+        $equipement = Equipement::find($id);
+        if($equipement->ConfirmerParAdmin==0)
+        {return redirect(url('/gerer_equipements/Consulter'))->with('error', 'Equipement non trouvé');}
+        $user=User::find(auth()->user()->id);
+        if($user->isAdmin()){
+            $equipement->delete();
+            return redirect(url('/gerer_equipements/Consulter'))->with('success','Suppression effectué avec succés');
+        }
+        $historique=new Historique();
+        $historique->action='Suppression';
+        $historique->personnel_id=$equipement->personnel->id;
+        $historique->user_id=auth()->user()->id;
+        $historique->equipement_id=$equipement->id;
+        $historique->bon_num=0;
+        $historique->ConfirmerParAdmin=false;
+        $historique->save();
+        return redirect(url('/gerer_equipements/Consulter'))->with('success','Votre demande de suppression est envoyée au administrateur pour la confirmation');
     }
 }
