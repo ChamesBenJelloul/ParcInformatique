@@ -28,6 +28,8 @@ Route::get('/gerer_utilisateurs', 'GererUtilisateursController@index')->middlewa
 Route::get('/gerer_utilisateurs/Modifier', 'GererUtilisateursController@Modifier')->middleware('role:ADMIN')->middleware('auth');
 Route::get('/gerer_utilisateurs/Supprimer', 'GererUtilisateursController@Supprimer')->middleware('role:ADMIN')->middleware('auth');
 Route::get('/gerer_utilisateurs/Historique', 'GererUtilisateursController@Historique')->middleware('role:ADMIN')->middleware('auth');
+Route::get('/gerer_utilisateurs/Historique/{historique}','GererUtilisateursController@showHistorique')->middleware('role:ADMIN')->middleware('auth');
+Route::post('/gerer_utilisateurs/Historique/{historique}','GererUtilisateursController@confirmer')->middleware('role:ADMIN')->middleware('auth');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

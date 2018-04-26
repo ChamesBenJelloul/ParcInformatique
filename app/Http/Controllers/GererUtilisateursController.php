@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Droit;
+use App\Equipement;
+use App\Historique;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -72,6 +74,31 @@ class GererUtilisateursController extends Controller
         return redirect('/gerer_utilisateurs/Supprimer')->with('success','Suppression effectué avec succés');
     }
     public function Historique(){
-        return view('utilisateurs.historique');
+        $historiques=Historique::all();
+        return view('utilisateurs.historique')->with('historiques',$historiques);
+    }
+    public function showHistorique($id){
+        $historique=Historique::find($id);
+        if (!strcmp($historique->action,"Ajout")||!strcmp($historique->action,"Suppression"))
+        {
+            return view('utilisateurs.showHistorique')->with('historique',$historique);
+        }
+        if(!strcmp($historique->action,"Modification")){
+            $oldEquipement=Equipement::where('Numéro de série',$historique->equipement["Numéro de série"])->where('ConfirmerParAdmin','1')->first();
+            return view('utilisateurs.showHistoriqueForModif')->with('historique',$historique)->with('oldEquipement',$oldEquipement);
+        }
+    }
+    public function confirmer(Request $request,$id){
+        $historique=Historique::find($id);
+        if(!strcmp($historique->action,"Ajout")){
+            $historique->ConfirmerParAdmin=1;
+            $historique->equipement["ConfirmerParAdmin"]=1;
+        }
+        if(!strcmp($historique->action,"Suppression"))
+        {
+            $historique->ConfirmerParAdmin=1;
+            $historique->equipement["ConfirmerParAdmin"]=0;
+            //suppression va laisser l'equipement mais sans confirmation par l'admin
+        }
     }
 }

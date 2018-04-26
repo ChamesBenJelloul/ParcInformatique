@@ -16,7 +16,6 @@ class CreateHistoriquesTable extends Migration
         Schema::create('historiques', function (Blueprint $table) {
             $table->increments('id');
             $table->string('action');
-            $table->integer('personnel_id');
             $table->integer('user_id');
             $table->integer('equipement_id');
             $table->string('bon_num')->comment('Bon de sortie d’immobilisation|Bon de transfert d’immobilisation');

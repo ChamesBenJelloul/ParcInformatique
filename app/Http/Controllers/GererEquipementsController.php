@@ -76,7 +76,6 @@ class GererEquipementsController extends Controller
         $historique=new Historique();
         $testEquipement=new Equipement();
         $historique->action='Ajout';
-        $historique->personnel_id=$request->personnel;
         $historique->user_id=auth()->user()->id;
         $testEquipement2=$testEquipement->where('Numéro de série',$request->Numéro_de_série)->first();
         $historique->equipement_id=$testEquipement2->id;
@@ -177,7 +176,6 @@ class GererEquipementsController extends Controller
             $historique=new Historique();
             $testEquipement=new Equipement();
             $historique->action='Modification';
-            $historique->personnel_id=$request->personnel;
             $historique->user_id=auth()->user()->id;
             $testEquipement2=$testEquipement->where('Numéro de série',$request->Numéro_de_série)->where('ConfirmerParAdmin','0')->first();
             $historique->equipement_id=$testEquipement2->id;
@@ -213,7 +211,6 @@ class GererEquipementsController extends Controller
         }
         $historique=new Historique();
         $historique->action='Suppression';
-        $historique->personnel_id=$equipement->personnel->id;
         $historique->user_id=auth()->user()->id;
         $historique->equipement_id=$equipement->id;
         $historique->bon_num=0;
