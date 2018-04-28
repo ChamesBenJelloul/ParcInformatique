@@ -25,6 +25,8 @@ class CreateEquipementsTable extends Migration
             $table->longText('Contrat de maintenance détaillé');
             $table->integer('personnel_id');
             $table->boolean('ConfirmerParAdmin')->nullable();
+            $table->boolean('Modification')->default(false);
+            $table->boolean('Suppression')->default(false);
             $table->timestamps();
         });
     }

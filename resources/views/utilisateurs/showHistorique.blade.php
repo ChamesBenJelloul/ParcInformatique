@@ -6,7 +6,7 @@
     <table class="table">
         <tr><td>Date</td><td>{{$historique->created_at}}</td></tr>
         <tr><td>Action</td><td>{{$historique->action}}</td></tr>
-        <tr><td>Utilisateur></td><td>{{$historique->user["username"]}}</td></tr>
+        <tr><td>Utilisateur</td><td>{{$historique->user["username"]}}</td></tr>
         <tr><td>Bon de sortie d'immobilisation</td><td>{{$historique->bon_num}}</td></tr>
         <tr><td>Equipement</td></tr>
         <tr><td>Numéro de série</td><td>{{$historique->equipement["Numéro de série"]}}</td></tr>
@@ -22,7 +22,14 @@
     </table>
     </div>
     <div align="center">
+        @if($historique->ConfirmerParAdmin==0)
         {{Form::submit("Confirmer l'opération!",['class'=>'btn btn-primary'])}}
+        @endif
+            {!! Form::close() !!}
+
     </div>
-    {!! Form::close() !!}
+    <div align="center">
+        <a href={{url('/gerer_utilisateurs/Historique')}}><button class="btn btn-default" >Retour</button></a>
+    </div>
+
 @endsection

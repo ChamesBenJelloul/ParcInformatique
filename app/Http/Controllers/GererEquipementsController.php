@@ -53,7 +53,7 @@ class GererEquipementsController extends Controller
             'code_du_marché' => 'required',
             'personnel' => 'required',
         ]);
-        $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->first();
+        $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('Suppression','0')->first();
         if($equipementExisteDeja){return redirect(url('/gerer_equipements/Ajout'))->with('error','Equipement existe déjà');}
         $equipement=new Equipement();
         $equipement["Numéro de série"]=$request->Numéro_de_série;
@@ -174,11 +174,9 @@ class GererEquipementsController extends Controller
         if(!$user->isAdmin())
         {
             $historique=new Historique();
-            $testEquipement=new Equipement();
             $historique->action='Modification';
             $historique->user_id=auth()->user()->id;
-            $testEquipement2=$testEquipement->where('Numéro de série',$request->Numéro_de_série)->where('ConfirmerParAdmin','0')->first();
-            $historique->equipement_id=$testEquipement2->id;
+            $historique->equipement_id=$equipement->id;
             if($request->num_bon==null){$historique->bon_num='0';}
             else{$historique->bon_num=$request->num_bon;}
             $historique->ConfirmerParAdmin=false;

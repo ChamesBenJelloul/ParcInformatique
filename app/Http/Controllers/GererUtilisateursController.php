@@ -74,31 +74,65 @@ class GererUtilisateursController extends Controller
         return redirect('/gerer_utilisateurs/Supprimer')->with('success','Suppression effectué avec succés');
     }
     public function Historique(){
-        $historiques=Historique::all();
+        $historiques=Historique::orderBy('created_at','asc')->get();
         return view('utilisateurs.historique')->with('historiques',$historiques);
     }
     public function showHistorique($id){
         $historique=Historique::find($id);
+
         if (!strcmp($historique->action,"Ajout")||!strcmp($historique->action,"Suppression"))
         {
             return view('utilisateurs.showHistorique')->with('historique',$historique);
         }
         if(!strcmp($historique->action,"Modification")){
+            if($historique->ConfirmerParAdmin==0){
             $oldEquipement=Equipement::where('Numéro de série',$historique->equipement["Numéro de série"])->where('ConfirmerParAdmin','1')->first();
             return view('utilisateurs.showHistoriqueForModif')->with('historique',$historique)->with('oldEquipement',$oldEquipement);
+            }
+            return view('utilisateurs.showHistorique')->with('historique',$historique);
         }
     }
+
     public function confirmer(Request $request,$id){
         $historique=Historique::find($id);
-        if(!strcmp($historique->action,"Ajout")){
-            $historique->ConfirmerParAdmin=1;
-            $historique->equipement["ConfirmerParAdmin"]=1;
-        }
-        if(!strcmp($historique->action,"Suppression"))
-        {
-            $historique->ConfirmerParAdmin=1;
-            $historique->equipement["ConfirmerParAdmin"]=0;
-            //suppression va laisser l'equipement mais sans confirmation par l'admin
-        }
+
+            if (!strcmp($historique->action, "Ajout")) {
+                $historique->ConfirmerParAdmin = 1;
+                $historique->equipement["ConfirmerParAdmin"] = 1;
+                $historique->save();
+                $historique->equipement->save();
+                return redirect('/gerer_utilisateurs/Historique')->with('success', 'Ajout effectué avec success');
+            }
+            if (!strcmp($historique->action, "Suppression")) {
+                $historique->ConfirmerParAdmin = 1;
+                $historique->equipement->Suppression=1;
+                $historique->equipement->ConfirmerParAdmin=0;
+                $historique->equipement->save();
+                $historique->save();
+                //equipement reste mais avec valeur Suppression=true
+                return redirect('/gerer_utilisateurs/Historique')->with('success', 'Suppression effectué avec success');
+            }
+            $historique->ConfirmerParAdmin = 1;
+            $oldEquipement=Equipement::where('Numéro de série',$historique->equipement["Numéro de série"])->where('ConfirmerParAdmin','1')->first();
+            $oldEquipement->ConfirmerParAdmin=0;
+            $oldEquipement->Modification=1;
+            $historique->equipement["ConfirmerParAdmin"] = 1;
+            $historique->save();
+            $oldEquipement->save();
+            $historique->equipement->save();
+            //appliquer la modification sur les demandes en cours de suppression
+            $historiques=Historique::where('equipement_id',$oldEquipement->id)->where('action','Suppression')->get();
+            foreach ($historiques as $historiqueManip)
+            {
+               $historiqueManip->equipement_id=$historique->equipement_id;
+               $historiqueManip->save();
+            }
+
+
+            return redirect('/gerer_utilisateurs/Historique')->with('success', 'Modification effectué avec success');
+
+
+
+
     }
 }
