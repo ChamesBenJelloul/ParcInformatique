@@ -23,8 +23,9 @@ Route::delete('/gerer_equipements/Consulter/{equipement}', 'GererEquipementsCont
 Route::get('/consulter_services', 'ConsulterServicesController@index')->middleware('auth');
 Route::get('/consulter_services/TableauxDeBords', 'ConsulterServicesController@TableauxDeBords')->middleware('role:TABLEAUX DE BORDS')->middleware('auth');
 Route::get('/consulter_services/Statistiques', 'ConsulterServicesController@Statistiques')->middleware('role:STATISTIQUES')->middleware('auth');
-Route::get('/gerer_utilisateurs', 'GererUtilisateursController@index')->middleware('role:ADMIN')->middleware('auth');
+Route::post('/consulter_services/Statistiques/show', 'ConsulterServicesController@Showstatistiques')->middleware('role:STATISTIQUES')->middleware('auth');
 
+Route::get('/gerer_utilisateurs', 'GererUtilisateursController@index')->middleware('role:ADMIN')->middleware('auth');
 Route::get('/gerer_utilisateurs/Modifier', 'GererUtilisateursController@Modifier')->middleware('role:ADMIN')->middleware('auth');
 Route::get('/gerer_utilisateurs/Supprimer', 'GererUtilisateursController@Supprimer')->middleware('role:ADMIN')->middleware('auth');
 Route::get('/gerer_utilisateurs/Historique', 'GererUtilisateursController@Historique')->middleware('role:ADMIN')->middleware('auth');
@@ -37,7 +38,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
 Route::get('/gerer_utilisateurs/Ajout', 'Auth\RegisterController@showRegistrationForm')->name('register')->middleware('role:ADMIN')->middleware('auth');
-Route::post('/gerer_utilisateurs/Ajout/Final', 'Auth\RegisterController@register')->name('register')->middleware('role:ADMIN')->middleware('auth');;
+Route::post('/gerer_utilisateurs/Ajout/Final', 'Auth\RegisterController@register')->name('register')->middleware('role:ADMIN')->middleware('auth');
 Route::post('finalregister', 'Auth\RegisterController@finalregister');
 
 // Password Reset Routes...
@@ -45,6 +46,9 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+Route::get('password_reset','HomeController@changermdp')->name('changermdp')->middleware('auth');
+Route::post('password_reset','HomeController@reset')->middleware('auth');
 
 Route::post('/gerer_utilisateurs/Modifier/Final','GererUtilisateursController@modifierForm');
 Route::post('finalModifier','GererUtilisateursController@finalModifier');

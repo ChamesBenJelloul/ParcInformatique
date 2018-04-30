@@ -53,7 +53,7 @@ class GererEquipementsController extends Controller
             'code_du_marché' => 'required',
             'personnel' => 'required',
         ]);
-        $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('Suppression','0')->first();
+        $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('Modification','0')->where('Suppression','0')->first();
         if($equipementExisteDeja){return redirect(url('/gerer_equipements/Ajout'))->with('error','Equipement existe déjà');}
         $equipement=new Equipement();
         $equipement["Numéro de série"]=$request->Numéro_de_série;
