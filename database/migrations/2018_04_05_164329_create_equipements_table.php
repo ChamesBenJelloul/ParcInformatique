@@ -15,13 +15,13 @@ class CreateEquipementsTable extends Migration
     {
         Schema::create('equipements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Numéro de série',10)->nullable();
-            $table->string('code patrimoine',10)->nullable();
-            $table->string('nom',10)->nullable();
-            $table->string('marque',10)->nullable();
-            $table->string('type',10)->nullable();
-            $table->string('code du marché',10)->nullable();
-            $table->string('numéro contrat de maintenance',10);
+            $table->string('Numéro de série')->nullable();
+            $table->string('code patrimoine')->nullable();
+            $table->string('nom')->nullable();
+            $table->string('marque')->nullable();
+            $table->string('type')->nullable();
+            $table->string('code du marché')->nullable();
+            $table->string('numéro contrat de maintenance');
             $table->longText('Contrat de maintenance détaillé');
             $table->integer('personnel_id');
             $table->boolean('ConfirmerParAdmin')->nullable();

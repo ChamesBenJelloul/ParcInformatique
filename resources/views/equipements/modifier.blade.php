@@ -9,7 +9,16 @@
     <table class="table">
         <tr><td>Numéro de série</td><td>{{$equipement["Numéro de série"]}}</td></tr>
         <tr><td>Code patrimoine</td><td>{{Form::text('code_patrimoine',$equipement["code patrimoine"])}}</td></tr>
-        <tr><td>Nom</td><td>{{Form::text('nom',$equipement["nom"])}}</td></tr>
+        <tr><td>Nom</td><td><select class="form-control input-sm" name="element" >
+                    <option value="Unité Centrale" @if ($equipement["nom"]=="Unité Centrale") selected="selected" @endif>Unité Centrale</option>
+                    <option value="Ecran" @if ($equipement["nom"]=="Ecran") selected="selected" @endif>Ecran</option>
+                    <option value="Imprimante" @if ($equipement["nom"]=="Imprimante") selected="selected" @endif>Imprimante</option>
+                    <option value="Scanner" @if ($equipement["nom"]=="Scanner") selected="selected" @endif>Scanner</option>
+                    <option value="Ordinateur Portable" @if ($equipement["nom"]=="Ordinateur Portable") selected="selected" @endif>Ordinateur Portable</option>
+                    <option value="consommables" @if ($equipement["nom"]=="consommables") selected="selected" @endif>consommables</option>
+                    <option value="Switch" @if ($equipement["nom"]=="Switch") selected="selected" @endif>Switch</option>
+                    <option value="Routeur" @if ($equipement["nom"]=="Routeur") selected="selected" @endif>Routeur</option>
+                </select></td></tr>
         <tr><td>Marque</td><td>{{Form::text('marque',$equipement["marque"])}}</td></tr>
         <tr><td>Type</td><td>{{Form::text('type',$equipement["type"])}}</td></tr>
         <tr><td>Code du marché</td><td>{{Form::text('code_du_marché',$equipement["code du marché"])}}</td></tr>

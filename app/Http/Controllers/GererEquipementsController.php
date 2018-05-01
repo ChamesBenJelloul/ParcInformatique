@@ -47,7 +47,6 @@ class GererEquipementsController extends Controller
         $this->validate($request,[
             'Numéro_de_série' => 'required',
             'code_patrimoine' => 'required',
-            'nom' => 'required',
             'marque' => 'required',
             'type' => 'required',
             'code_du_marché' => 'required',
@@ -131,7 +130,6 @@ class GererEquipementsController extends Controller
         $this->validate($request,[
             'Numéro_de_série' => 'required',
             'code_patrimoine' => 'required',
-            'nom' => 'required',
             'marque' => 'required',
             'type' => 'required',
             'code_du_marché' => 'required',
