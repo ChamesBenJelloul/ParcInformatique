@@ -102,7 +102,7 @@ class ConsulterServicesController extends Controller
             return view('services.Showstatistiques',compact('lava'));
         }
         if($request->element=="type" && $request->critere=="Occupant"){
-            return 123;
+            return 1234;
         }
         if($request->element=="utilisateur" && $request->critere=="Occupant"){
             $equipement=Equipement::where('nom prenom',$request->critere2)->get();
