@@ -11,8 +11,9 @@
             <option selected="selected" value="aa">
 
             </option>
+            <option value="equipement">les équipements les plus utilisés</option>
             <option value="marque">les marques d'équipement les plus utilisées</option>
-            <option value="type">les types d'équipement les plus utilisées</option>
+            <option value="type">les types d'équipement les plus utilisés</option>
             <option value="utilisateur">les utilisateurs les plus actifs</option>
         </select>
         </div>
