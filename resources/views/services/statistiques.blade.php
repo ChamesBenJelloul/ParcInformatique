@@ -15,6 +15,9 @@
             <option value="marque">les marques d'équipement les plus utilisées</option>
             <option value="type">les types d'équipement les plus utilisés</option>
             <option value="utilisateur">les utilisateurs les plus actifs</option>
+            <option value="nbr_equi">nombre d'équipements</option>
+            <option value="nbr_utili">nombre d'utilisateurs</option>
+            <option value="nbr_admin">nombre d'administrateurs</option>
         </select>
         </div>
         {{Form::label('critère','Critère')}}

@@ -9,7 +9,7 @@
     <table class="table">
         <tr><td>Numéro de série</td><td>{{$equipement["Numéro de série"]}}</td></tr>
         <tr><td>Code patrimoine</td><td>{{Form::text('code_patrimoine',$equipement["code patrimoine"])}}</td></tr>
-        <tr><td>Nom</td><td><select class="form-control input-sm" name="element" >
+        <tr><td>Nom</td><td><select class="form-control input-sm" name="nom" >
                     <option value="Unité Centrale" @if ($equipement["nom"]=="Unité Centrale") selected="selected" @endif>Unité Centrale</option>
                     <option value="Ecran" @if ($equipement["nom"]=="Ecran") selected="selected" @endif>Ecran</option>
                     <option value="Imprimante" @if ($equipement["nom"]=="Imprimante") selected="selected" @endif>Imprimante</option>
