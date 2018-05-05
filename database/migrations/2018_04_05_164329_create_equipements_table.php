@@ -27,6 +27,7 @@ class CreateEquipementsTable extends Migration
             $table->boolean('ConfirmerParAdmin')->nullable();
             $table->boolean('Modification')->default(false);
             $table->boolean('Suppression')->default(false);
+            $table->string('Adresse Physique')->default('0')->comment('Adresse Physique du carte réseau');
             $table->timestamps();
         });
     }

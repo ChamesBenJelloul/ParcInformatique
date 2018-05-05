@@ -15,7 +15,13 @@ class ConsulterServicesController extends Controller
         return view('services.index');
     }
     public function TableauxDeBords(){
-        return view('services.tableauxdebords');
+        /*for ($i=1;$i<5;$i++){
+            exec("ping -n 1 192.168.1.".$i, $output, $result);
+        }*/
+        exec("arp -a", $output, $result);
+        $list=implode("",$output);
+        $equipements=Equipement::where('Adresse Physique','!=','0')->get();
+        return view('services.tableauxdebords')->with('equipements',$equipements)->with('list',$list);
     }
     public function Statistiques(){
         $personnels=Personnel::all();

@@ -8,18 +8,24 @@
     //exec("ping -n 3 $ip", $output, $status);
 
 //echo exec("ping 192.168.1.20");
-$host="192.168.1.20";
+//$host="192.168.1.20";
 
-exec("ping -n 4 " . $host, $output, $result);
 
-print_r($output);
-
-if ($result == 0)
-
-    echo "Ping successful!";
-
-else
-
-    echo "Ping unsuccessful!";
 ?>
+    <table class="table">
+        @foreach($equipements as $equipement)
+            <tr><td>Equipement N {{$equipement->id}}  {{$equipement->nom}}-Numéro de série {{$equipement["Numéro de série"]}}</td>
+                <td>@if(strpos($list,$equipement["Adresse Physique"]))
+                        Equipement Connecté
+                    @else
+                        Equipement Non Connecté
+                    @endif
+                </td>
+                <td>
+                    {{$equipement["Adresse Physique"]}}
+                </td>
+            </tr>
+        @endforeach
+    </table>
+
 @endsection
