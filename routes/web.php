@@ -55,3 +55,6 @@ Route::post('finalModifier','GererUtilisateursController@finalModifier');
 Route::post('finalSupprimer','GererUtilisateursController@finalSupprimer');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test',function (){
+    return view('layouts.newapp');
+});
