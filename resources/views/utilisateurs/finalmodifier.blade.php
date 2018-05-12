@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.newapp')
 @section('content')
     {!! Form::open(['action' => ['GererUtilisateursController@finalModifier'], 'method' => 'POST']) !!}
     <div class="form-group" align="center">

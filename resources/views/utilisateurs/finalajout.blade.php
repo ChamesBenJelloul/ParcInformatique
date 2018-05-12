@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.newapp')
 @section('content')
     <h1>Confirmer l'ajout</h1>
     {!! Form::open(['action' => 'Auth\RegisterController@finalregister', 'method' => 'POST']) !!}

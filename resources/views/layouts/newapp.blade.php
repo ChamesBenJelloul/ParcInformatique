@@ -9,8 +9,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="http://material-admin.strapui.com/css/vendor.css" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/custom3.css') }}" />
     <link rel="shortcut icon" href="{{ asset('img/mylogo.ico') }}">
     <link rel="stylesheet" href="{{ asset('css/icons.css') }}">
 
@@ -81,32 +82,28 @@
             </div>
             <div class="dashboard-menu">
                 <ul class="menu-list">
-                    <li class=active><a href={{url('/')}} class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons" >home</i> &nbsp;<span class="text">Home </span></a></li>
-                    <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="mdi mdi-arrange-bring-to-front"></i> &nbsp;<span class="text"> UI Elements </span><i class="mdi mdi-chevron-down"></i></a>
-                        <ul class="sub-menu ">
-                            <li ><a href="/ui-elements/button" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Button</span></a></li>
-                            <li ><a href="/ui-elements/card" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Cards</span></a></li>
-                            <li ><a href="/ui-elements/components" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Components</span></a></li>
+      @if(Request::path()=='home')<li class=active>@else <li> @endif <a href="{{url('/')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons" >home</i> &nbsp;<span class="text">Home </span></a></li>
+                    <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">developer_board</i> &nbsp;<span class="text"> Gérer les équipements </span><i class="material-icons">arrow_drop_down</i></a>
+                    <ul id="1111" class="sub-menu ">
+                        @if(Request::path()=='gerer_equipements/Ajout')<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
+                        @if(Request::path()=='gerer_equipements/Consulter')<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Consulter')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Consulter</span></a></li>
+                    </ul>
+                    </li>
+                    <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">assessment</i> &nbsp;<span class="text"> Services </span><i class="material-icons">arrow_drop_down</i></a>
+                        <ul id="2222" class="sub-menu ">
+                            @if(Request::path()=='consulter_services/TableauxDeBords')<li class=active>@else <li> @endif<a href="{{url('/consulter_services/TableauxDeBords')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Tableau De Bord</span></a></li>
+                            @if(Request::path()=='consulter_services/Statistiques')<li class=active>@else <li> @endif<a href="{{url('/consulter_services/Statistiques')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Statistiques</span></a></li>
                         </ul>
                     </li>
-                    <li ><a href="/form" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-receipt"></i> &nbsp;<span class="text"> Form</span></a></li>
-                    <li ><a href="/grid" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-grid"></i> &nbsp;<span class="text"> Grid</span></a></li>
-                    <li class="show-subnav"><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="mdi mdi-chart-areaspline"></i> &nbsp;<span class="text"> Charts</span><i class="mdi mdi-chevron-down"></i></a>
-                        <ul class="sub-menu ">
-                            <li ><a href="/charts/chartjs" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">ChartJS</span></a></li>
-                            <li ><a href="/charts/c3chart" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">C3 Charts</span></a></li>
+                    <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">supervisor_account</i> &nbsp;<span class="text"> Gérer les utilisateurs </span><i class="material-icons">arrow_drop_down</i></a>
+                        <ul id="3333" class="sub-menu ">
+                            @if(Request::path()=='gerer_utilisateurs/Ajout')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
+                            @if(Request::path()=='gerer_utilisateurs/Modifier')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Modifier')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Modifier</span></a></li>
+                            @if(Request::path()=='gerer_utilisateurs/Historique')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Historique')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Historique</span></a></li>
+                            @if(Request::path()=='gerer_utilisateurs/Supprimer')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Supprimer')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Supprimer</span></a></li>
                         </ul>
                     </li>
-                    <li ><a href="/calendar" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-calendar"></i> &nbsp;<span class="text"> Calendar</span></a></li>
-                    <li ><a href="/inbox" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-message"></i> &nbsp;<span class="text"> Inbox</span></a></li>
-                    <li ><a href="/profile" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-account"></i> &nbsp;<span class="text"> Profile</span></a></li>
-                    <li ><a href="/invoice" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-barcode"></i> &nbsp;<span class="text"> Invoice</span></a></li>
-                    <li ><a href="/signup" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-account-multiple-plus"></i> &nbsp;<span class="text"> Sign Up</span></a></li>
-                    <li ><a href="/login" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-logout"></i> &nbsp;<span class="text"> Log in</span></a></li>
-                    <li ><a href="/404" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-alert-octagon"></i> &nbsp;<span class="text"> 404 Page</span></a></li>
-                    <li ><a href="/blank" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-content-paste"></i> &nbsp;<span class="text"> Blank page</span></a></li>
-                    <li ><a href="/docs" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="mdi mdi-texture"></i> &nbsp;<span class="text"> Documentation</span></a></li>
-                </ul>
+                    </ul>
             </div>
         </div>
     </aside>
@@ -115,21 +112,36 @@
             <!-- Your content goes here -->
 
            <div class="panel shadow">
-               <i class="material-icons">verified_user</i>
-
+               <main class="py-4">
+               @include('layouts.messages')
+               @yield('content')
+               </main>
            </div>
         </div>
     </main>
 </div>
 
 
-<script src="http://material-admin.strapui.com/js/vendor.js" type="text/javascript"></script>
+<script src="{{ asset('js/custom1.js') }}" type="text/javascript"></script>
 
 
 
 
 
 <script>
+    $('body').toggleClass('extended');
+    var url="{{Request::path()}}";
+    if(url.includes("gerer_equipements")){
+        $( "#1111" ).toggleClass('visible');
+    }
+    if(url.includes("consulter_services")){
+        $( "#2222" ).toggleClass('visible');
+    }
+    if(url.includes("gerer_utilisateurs")){
+        $( "#3333" ).toggleClass('visible');
+    }
+
+
 
     $(function () {
 
@@ -241,204 +253,23 @@
             changeTheme($(this).attr('id'));
         });
 
-        function changeTheme(theme) {
-
-            $('<link>')
-                .appendTo('head')
-                .attr({type : 'text/css', rel : 'stylesheet'})
-                .attr('href', '/css/app-'+theme+'.css');
-
-            $.get('api/change-theme?theme='+theme);
-        }
 
 
     });
-    function changeLanguage(lang){
-        console.log(lang);
-        $.get('api/lang?lang='+lang);
-        setTimeout(function() {
-            window.location.reload(true);
-
-        }, 550);
-    }
 </script>
 
 
 
 <script>
     $(function() {
+        if("{{Request::path()}}"=="home"){
         $.growl({ title: "Bonjour", message: "Bienvenue {{ Auth::user()->username }}!" });
+        }
         if ($(window).width()<600) {
             $('#drag').removeAttr('id');
             $('#drag2').removeAttr('id');
         };
-        $('#chart1').easyPieChart({
-            lineWidth: 8,
-            scaleColor: false,
-            size: 85,
-            lineCap: "square",
-            barColor: "#fb8c00",
-            trackColor: "#f9dcb8"
-        });
-        $('#chart2').easyPieChart({
-            lineWidth: 8,
-            scaleColor: false,
-            size: 85,
-            lineCap: "square",
-            barColor: "#00D554",
-            trackColor: "#c7f9db"
-        });
-        $('#chart3').easyPieChart({
-            lineWidth: 8,
-            scaleColor: false,
-            size: 85,
-            lineCap: "square",
-            barColor: "#F800FC",
-            trackColor: "#F5E5F5"
-        });
 
-        var lineChartData1 = {
-            labels : ["JAN","FEB","MAR","APR","MAY","JUN"],
-            datasets: [
-                {
-                    label: "My First dataset",
-                    fillColor: "#FFA3FD",
-                    strokeColor: "#FFA3FD",
-                    pointColor: "#fff",
-                    pointStrokeColor: "#FFA3FD",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#FFA3FD",
-                    data: [7, 20, 10, 15, 17, 10, 27]
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "#F800FC",
-                    strokeColor: "#F800FC",
-                    pointColor: "#fff",
-                    pointStrokeColor: "#F800FC",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#F800FC",
-                    data: [6, 9, 22, 11, 13, 20, 27]
-                }
-            ]
-
-        };
-
-        var homeLineChart = document.getElementById("home-line-chart").getContext("2d");
-
-        var chartCurves = new Chart(homeLineChart).Line(lineChartData1, {
-            responsive: true,
-            bezierCurve : false,
-            datasetStroke: false,
-            legendTemplate: false,
-            pointDotRadius : 6,
-            showTooltips: false
-        });
-
-        $( "#refresh1" ).click(function() {
-            chartCurves.datasets[0].points[1].value = Math.floor(Math.random() * (22 - 17 + 1)) + 17;
-            chartCurves.datasets[0].points[3].value = Math.floor(Math.random() * (22 - 15 + 1)) + 15;
-            chartCurves.datasets[0].points[4].value = Math.floor(Math.random() * (19 - 13 + 1)) + 13;
-            chartCurves.datasets[1].points[1].value = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
-            chartCurves.datasets[1].points[2].value = Math.floor(Math.random() * (25 - 20 + 1)) + 20;
-            chartCurves.datasets[1].points[4].value = Math.floor(Math.random() * (15 - 10 + 1)) + 10;
-            chartCurves.datasets[1].points[5].value = Math.floor(Math.random() * (22 - 18 + 1)) + 18;
-            chartCurves.update();
-        });
-
-        var lineChartData2 = {
-            labels : ["JAN","FEB","MAR","APR","MAY","JUN"],
-            datasets: [
-                {
-                    label: "My First dataset",
-                    fillColor: "rgba(0,0,0, 0)",
-                    strokeColor: "#C172FF",
-                    pointColor: "#fff",
-                    pointStrokeColor: "#8F00FF",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#8F00FF",
-                    data: [99, 180, 80, 140, 120, 220, 100]
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "rgba(0,0,0, 0)",
-                    strokeColor: "#FFB53A",
-                    pointColor: "#fff",
-                    pointStrokeColor: "#FF8300",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#FF8300",
-                    data: [50, 145, 200, 75, 50, 100, 50]
-                }
-            ]
-
-        };
-
-
-        var homeLineChart2 = document.getElementById("home-line-chart2").getContext("2d");
-
-        var chartCurves2 = new Chart(homeLineChart2).Line(lineChartData2, {
-            responsive: true,
-            bezierCurve : false,
-            datasetStroke: false,
-            legendTemplate: false,
-            pointDotRadius : 9,
-            pointDotStrokeWidth : 3,
-            datasetStrokeWidth : 3
-        });
-
-        var chart = c3.generate({
-            bindto: '#bar',
-            data: {
-                columns: [
-                    ['Players', 30, 200, 100, 400, 150, 250, 200, 120, 80, 180, 40, 90, 220, 110, 20, 65]
-                ],
-                type: 'bar'
-            },
-            bar: {
-                width: {
-                    width: 30 // this makes bar width 50% of length between ticks
-                }
-                // or
-                //width: 100 // this makes bar width 100px
-            },
-            color: {
-                pattern: ['#00D554']
-            },
-            padding: {
-                left: 70,
-                right: 50,
-                top: 10
-            },
-            legend: {
-                hide: true
-            }
-        });
-
-
-        var chart2 = c3.generate({
-            bindto: '#donut',
-            data: {
-                columns: [
-                    ['Approved', 13],
-                    ['Pending', 25],
-                    ['Rejected', 25],
-                    ['Others', 37]
-                ],
-                type : 'donut'
-            },
-            donut: {
-                title: ""
-            },
-            color: {
-                pattern: ['#FF8300','#00AEFF','#00D554','#FF2800']
-            },
-            padding: {
-                left: 30,
-                right: 30,
-                top: 30,
-                bottom: 15
-            }
-        });
         dragula([document.getElementById('drag')], {
             revertOnSpill: true
         });

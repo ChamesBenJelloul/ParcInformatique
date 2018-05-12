@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.newapp')
 
 @section('content')
     <h2>Consulter les services</h2>

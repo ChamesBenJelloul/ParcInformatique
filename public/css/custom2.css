@@ -10041,7 +10041,7 @@ h5 {
 .sidebar .dashboard-menu ul.menu-list li a .mdi-chevron-down {
     display: none; }
 .sidebar .dashboard-menu ul.menu-list li a:hover {
-    background: #005cf5; }
+    background: #2979FF; }
 .sidebar .dashboard-menu ul.menu-list li ul.sub-menu {
     display: none;
     list-style-type: none;
@@ -10085,7 +10085,7 @@ h5 {
 .navbar a {
     padding: 0 15px !important; }
 .navbar .mdi, .navbar .mdl-textfield__input {
-    color: #78909c; }
+    color: #2979FF; }
 .navbar .mdi {
     margin-top: 5px;
     font-size: 25px; }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.newapp')
 @section('content')
     <h1>Ajouter un utilisateur</h1>
     {!! Form::open(['action' => 'Auth\RegisterController@register', 'method' => 'POST']) !!}
