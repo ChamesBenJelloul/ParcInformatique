@@ -1,15 +1,22 @@
 @extends('layouts.newapp')
 
 @section('content')
-
-    <h3>AJOUTER UN EQUIPEMENT</h3>
+<div class="form-group" align="center">
+    <h4>AJOUTER UN EQUIPEMENT</h4><i class="material-icons" style="font-size:42px;">add_to_queue</i>
+</div>
     {!! Form::open(['action' => 'GererEquipementsController@store', 'method' => 'POST']) !!}
-    <div class="form-group" align="center">
-        <div class="well">
-
-              {{Form::label('Numéro de série','Numéro de série')}}   {{Form::text('Numéro_de_série')}}<br>
-              {{Form::label('code patrimoine','code patrimoine')}}   {{Form::text('code_patrimoine')}}<br>
-                <div class="col-sm-2">{{Form::label('nom','nom')}}   <select class="form-control input-sm" name="nom" >
+    <div class="form-group">
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="Numéro_de_série" />
+                <label class="mdl-textfield__label" for="Numéro_de_série">Numéro de série</label>
+                <span class="mdl-textfield__error">L'entrée n'est pas un nombre!</span>
+            </div><br>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="code_patrimoine"/>
+                <label class="mdl-textfield__label" for="code_patrimoine">Code patrimoine</label>
+                <span class="mdl-textfield__error">L'entrée n'est pas un nombre!</span>
+            </div>
+            <div class="col-sm-2"><select class="form-control input-sm" name="nom" >
                 <option value="Unité Centrale">Unité Centrale</option>
                 <option value="Ecran">Ecran</option>
                 <option value="Imprimante">Imprimante</option>
@@ -18,12 +25,30 @@
                 <option value="consommables">consommables</option>
                 <option value="Switch">Switch</option>
                 <option value="Routeur">Routeur</option>
-                </select></div><br>
-              {{Form::label('marque','marque')}}    {{Form::text('marque')}}<br>
-              {{Form::label('type','type')}}    {{Form::text('type')}}<br>
-              {{Form::label('code du marché','code du marché')}}    {{Form::text('code_du_marché')}}<br>
-              {{Form::label('numéro contrat de maintenance','numéro contrat de maintenance')}}    {{Form::text('numéro_contrat_de_maintenance','Optionnel')}}<br>
-              {{Form::label('Contrat de maintenance détaillé','Contrat de maintenance détaillé')}}    {{Form::textarea('Contrat_de_maintenance_détaillé','Optionnel')}}<br>
+             </select></div><br>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" name="marque"/>
+                <label class="mdl-textfield__label" for="marque">Marque</label>
+            </div><br>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" name="type"/>
+                <label class="mdl-textfield__label" for="type">Type</label>
+            </div><br>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" name="code_du_marché"/>
+                <label class="mdl-textfield__label" for="code_du_marché">Code du marché</label>
+            </div><br>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="numéro_contrat_de_maintenance"/>
+                <label class="mdl-textfield__label" for="numéro_contrat_de_maintenance">Num contrat de maintenance (Optionnel)</label>
+                <span class="mdl-textfield__error">L'entrée n'est pas un nombre!</span>
+            </div><br>
+            <div class="mdl-textfield mdl-js-textfield textfield-demo">
+                <textarea class="mdl-textfield__input" type="text" rows= "7" name="Contrat_de_maintenance_détaillé" ></textarea>
+                <label class="mdl-textfield__label" for="Contrat_de_maintenance_détaillé">Contrat de maintenance détaillé <br>(Optionnel)</label>
+            </div><br>
+
+
             {{Form::label('personnel',"Choisir l'occupant")}}
             <div class="col-sm-2">
             <select class="form-control input-sm" name="personnel" >
@@ -35,9 +60,37 @@
                 @endforeach
             </select><br>
             </div>
-            {{Form::label('Bon de sortie d’immobilisation','Bon de sortie d’immobilisation')}}    {{Form::text('Bon_de_sortie_d’immobilisation')}}
-            {{Form::submit('AJOUT!',['class'=>'btn btn-primary'])}}
-        </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" name="Adresse_Physique" id="Adresse_Physique" maxlength="17"/>
+                <label class="mdl-textfield__label" for="Adresse_Physique">Adresse Physique-Mac (Optionnel)</label>
+            </div><br>
+
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="Bon_de_sortie_d’immobilisation"/>
+                <label class="mdl-textfield__label" for="Bon_de_sortie_d’immobilisation">Bon de sortie d’immobilisation</label>
+                <span class="mdl-textfield__error">L'entrée n'est pas un nombre!</span>
+            </div><br>
+            <div align="center">
+            {{Form::submit('AJOUT!',['class'=>'mdl-button mdl-js-button mdl-button--colored'])}}
+            </div>
     </div>
     {!! Form::close() !!}
+
+<script>
+    var macAddress = document.getElementById("Adresse_Physique");
+
+    function formatMAC(e) {
+        var r = /([a-f0-9]{2})([a-f0-9]{2})/i,
+            str = e.target.value.replace(/[^a-f0-9]/ig, "");
+
+        while (r.test(str)) {
+            str = str.replace(r, '$1' + '-' + '$2');
+        }
+
+        e.target.value = str.slice(0, 17);
+    };
+
+    macAddress.addEventListener("keyup", formatMAC, false);
+</script>
 @endsection

@@ -2,7 +2,16 @@
 
 @section('content')
 
-    <h3>MODIFIER EQUIPEMENT Num {{$equipement->id}}</h3>
+    <div align="center" class="form-group">
+        @if($equipement['nom']=="Unité Centrale")<img src="{{asset('img/Unité Centrale.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="Ecran")<img src="{{asset('img/Ecran.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="Imprimante")<img src="{{asset('img/Imprimante.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="Scanner")<img src="{{asset('img/Scanner.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="Ordinateur Portable")<img src="{{asset('img/Ordinateur Portable.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="consommables")<img src="{{asset('img/consommables.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="Switch")<img src="{{asset('img/Switch.png')}}" width="70" height="70">@endif
+        @if($equipement['nom']=="Routeur")<img src="{{asset('img/Routeur.png')}}" width="70" height="70">@endif
+    </div>
 
     {!!Form::open(['action' => ['GererEquipementsController@update' ,$equipement->id] , 'method' => 'POST']) !!}
 

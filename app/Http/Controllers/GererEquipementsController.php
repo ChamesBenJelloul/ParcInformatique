@@ -36,6 +36,11 @@ class GererEquipementsController extends Controller
         $equipements=Equipement::where('ConfirmerParAdmin','1')->get();
         return view('equipements.consulter')->with('equipements',$equipements);
     }
+    public function ConsulterParId(Request $request){
+        $equipement=Equipement::where('Numéro de série',$request->Numéro_de_série)->first();
+        return view('equipements.consulterParId')->with('equipement',$equipement);
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -44,6 +49,14 @@ class GererEquipementsController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'Numéro_de_série.required' => 'Numéro de série obligatoire.',
+            'code_patrimoine.required' => 'Code patrimoine obligatoire.',
+            'marque.required' => 'Marque obligatoire.',
+            'type.required' => 'Type obligatoire.',
+            'code_du_marché.required' => 'Code du marché obligatoire.',
+            'personnel.required' => 'Personnel obligatoire.',
+        ];
         $this->validate($request,[
             'Numéro_de_série' => 'required',
             'code_patrimoine' => 'required',
@@ -51,7 +64,7 @@ class GererEquipementsController extends Controller
             'type' => 'required',
             'code_du_marché' => 'required',
             'personnel' => 'required',
-        ]);
+        ],$messages);
         $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('Modification','0')->where('Suppression','0')->first();
         if($equipementExisteDeja){return redirect(url('/gerer_equipements/Ajout'))->with('error','Equipement existe déjà');}
         $equipement=new Equipement();
@@ -127,6 +140,14 @@ class GererEquipementsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'Numéro_de_série.required' => 'Numéro de série obligatoire.',
+            'code_patrimoine.required' => 'Code patrimoine obligatoire.',
+            'marque.required' => 'Marque obligatoire.',
+            'type.required' => 'Type obligatoire.',
+            'code_du_marché.required' => 'Code du marché obligatoire.',
+            'personnel.required' => 'Personnel obligatoire.',
+        ];
         $this->validate($request,[
             'Numéro_de_série' => 'required',
             'code_patrimoine' => 'required',
@@ -134,7 +155,7 @@ class GererEquipementsController extends Controller
             'type' => 'required',
             'code_du_marché' => 'required',
             'personnel' => 'required',
-        ]);
+        ],$messages);
         $user=User::find(auth()->user()->id);
         if($user->isAdmin()){$equipement=Equipement::find($id);}
         else{$equipement=new Equipement();}
@@ -146,6 +167,7 @@ class GererEquipementsController extends Controller
         $equipement["code du marché"]=$request->code_du_marché;
         $equipement["numéro contrat de maintenance"]=$request->numéro_contrat_de_maintenance;
         $equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;
+        $equipement["Adresse Physique"]=$request->Adresse_Physique;
         $personnel=Personnel::find($request->personnel);
         if($request->personnel==$request->personnel_old) {
             if (!$user->isAdmin()) {

@@ -16,6 +16,7 @@ Route::get('/gerer_equipements', 'GererEquipementsController@index')->middleware
 Route::get('/gerer_equipements/Ajout', 'GererEquipementsController@Ajout')->middleware('role:AJOUT EQUIPEMENT')->middleware('auth');
 Route::post('store','GererEquipementsController@store')->middleware('role:AJOUT EQUIPEMENT')->middleware('auth');;
 Route::get('/gerer_equipements/Consulter', 'GererEquipementsController@Consulter')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
+Route::post('/gerer_equipements/Consulter', 'GererEquipementsController@ConsulterParId')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
 Route::get('/gerer_equipements/Consulter/{equipement}','GererEquipementsController@show')->middleware('role:CONSULTER EQUIPEMENT')->middleware('auth');
 Route::get('/gerer_equipements/Consulter/{equipement}/Modifier', 'GererEquipementsController@Modifier')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth');
 Route::put('/gerer_equipements/Consulter/{equipement}','GererEquipementsController@update')->middleware('role:MODIFIER EQUIPEMENT')->middleware('auth')->name('update');
