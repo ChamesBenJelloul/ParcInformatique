@@ -8,7 +8,7 @@
         <label class="mdl-textfield__label" for="Numéro_de_série">Numéro de série</label>
         <span class="mdl-textfield__error">L'entrée n'est pas un nombre!</span>
     </div>
-    <button type="submit">
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
         <i class="material-icons">
             search
         </i>

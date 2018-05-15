@@ -49,22 +49,45 @@ class GererEquipementsController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'Numéro_de_série.required' => 'Numéro de série obligatoire.',
-            'code_patrimoine.required' => 'Code patrimoine obligatoire.',
-            'marque.required' => 'Marque obligatoire.',
-            'type.required' => 'Type obligatoire.',
-            'code_du_marché.required' => 'Code du marché obligatoire.',
-            'personnel.required' => 'Personnel obligatoire.',
-        ];
-        $this->validate($request,[
-            'Numéro_de_série' => 'required',
-            'code_patrimoine' => 'required',
-            'marque' => 'required',
-            'type' => 'required',
-            'code_du_marché' => 'required',
-            'personnel' => 'required',
-        ],$messages);
+        $user=User::find(auth()->user()->id);
+        if($user->isAdmin()) {
+            $messages = [
+                'Numéro_de_série.required' => 'Numéro de série obligatoire.',
+                'code_patrimoine.required' => 'Code patrimoine obligatoire.',
+                'marque.required' => 'Marque obligatoire.',
+                'type.required' => 'Type obligatoire.',
+                'code_du_marché.required' => 'Code du marché obligatoire.',
+                'personnel.required' => 'Personnel obligatoire.',
+            ];
+            $this->validate($request, [
+                'Numéro_de_série' => 'required',
+                'code_patrimoine' => 'required',
+                'marque' => 'required',
+                'type' => 'required',
+                'code_du_marché' => 'required',
+                'personnel' => 'required',
+            ], $messages);
+        }
+        else{
+            $messages = [
+                'Numéro_de_série.required' => 'Numéro de série obligatoire.',
+                'code_patrimoine.required' => 'Code patrimoine obligatoire.',
+                'marque.required' => 'Marque obligatoire.',
+                'type.required' => 'Type obligatoire.',
+                'code_du_marché.required' => 'Code du marché obligatoire.',
+                'personnel.required' => 'Personnel obligatoire.',
+                'Bon_de_sortie_d’immobilisation.required' => 'Bon de sortie d’immobilisation obligatoire.',
+            ];
+            $this->validate($request, [
+                'Numéro_de_série' => 'required',
+                'code_patrimoine' => 'required',
+                'marque' => 'required',
+                'type' => 'required',
+                'code_du_marché' => 'required',
+                'personnel' => 'required',
+                'Bon_de_sortie_d’immobilisation' => 'required',
+            ], $messages);
+        }
         $equipementExisteDeja=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('Modification','0')->where('Suppression','0')->first();
         if($equipementExisteDeja){return redirect(url('/gerer_equipements/Ajout'))->with('error','Equipement existe déjà');}
         $equipement=new Equipement();
@@ -74,8 +97,12 @@ class GererEquipementsController extends Controller
         $equipement["marque"]=$request->marque;
         $equipement["type"]=$request->type;
         $equipement["code du marché"]=$request->code_du_marché;
-        $equipement["numéro contrat de maintenance"]=$request->numéro_contrat_de_maintenance;
-        $equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;
+        if($request->numéro_contrat_de_maintenance==""){$equipement["numéro contrat de maintenance"]="Optionnel";}
+        else{$equipement["numéro contrat de maintenance"]=$request->numéro_contrat_de_maintenance;}
+        if($request->Contrat_de_maintenance_détaillé==""){$equipement["Contrat de maintenance détaillé"]="Optionnel";}
+        else{$equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;}
+        if($request->Adresse_Physique==""){$equipement["Adresse Physique"]="0";}
+        else{$equipement["Adresse Physique"]=$request->Adresse_Physique;}
         $personnel=Personnel::find($request->personnel);
         $equipement->personnel()->associate($personnel);
         $user=User::find(auth()->user()->id);
@@ -165,9 +192,12 @@ class GererEquipementsController extends Controller
         $equipement["marque"]=$request->marque;
         $equipement["type"]=$request->type;
         $equipement["code du marché"]=$request->code_du_marché;
-        $equipement["numéro contrat de maintenance"]=$request->numéro_contrat_de_maintenance;
-        $equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;
-        $equipement["Adresse Physique"]=$request->Adresse_Physique;
+        if($request->numéro_contrat_de_maintenance==""){$equipement["numéro contrat de maintenance"]="Optionnel";}
+        else{$equipement["numéro contrat de maintenance"]=$request->numéro_contrat_de_maintenance;}
+        if($request->Contrat_de_maintenance_détaillé==""){$equipement["Contrat de maintenance détaillé"]="Optionnel";}
+        else{$equipement["Contrat de maintenance détaillé"]=$request->Contrat_de_maintenance_détaillé;}
+        if($request->Adresse_Physique==""){$equipement["Adresse Physique"]="0";}
+        else{$equipement["Adresse Physique"]=$request->Adresse_Physique;}
         $personnel=Personnel::find($request->personnel);
         if($request->personnel==$request->personnel_old) {
             if (!$user->isAdmin()) {

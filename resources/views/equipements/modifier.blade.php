@@ -43,6 +43,7 @@
                         @endif
                     @endforeach
                 </select></td></tr>
+        <tr><td>Adresse Physique-Mac</td><td><input type="text" name="Adresse_Physique" id="Adresse_Physique" maxlength="17" value="{{$equipement["Adresse Physique"]}}"/></td></tr>
         <tr><td>Bon de transfert d’immobilisation (en cas de modification du l'occupant)</td><td>{{Form::text('num_bon')}}</td></tr>
     </table>
 
@@ -50,7 +51,33 @@
         <input type="hidden" name="Numéro_de_série" value="{{$equipement["Numéro de série"]}}">
         <input type="hidden" name="personnel_old" value="{{$equipement->personnel->id}}">
         {{Form::hidden('_method','PUT')}}
-        {{Form::submit('Confirmer!',['class'=>'btn btn-danger'])}}
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--colored">
+            <i class="material-icons" style="font-size:18px;">
+                done
+            </i> Confirmer
+        </button>{!! Form::close() !!}
+        {!!Form::open(['action' => ['GererEquipementsController@show' ,$equipement->id] , 'method' => 'GET' , 'style' => 'display:inline-block']) !!}
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--colored">
+            <i class="material-icons" style="font-size:18px;">
+                clear
+            </i>Annuler
+            </button>
+        {!! Form::close() !!}
     </div>
-    {!! Form::close() !!}
+    <script>
+        var macAddress = document.getElementById("Adresse_Physique");
+
+        function formatMAC(e) {
+            var r = /([a-f0-9]{2})([a-f0-9]{2})/i,
+                str = e.target.value.replace(/[^a-f0-9]/ig, "");
+
+            while (r.test(str)) {
+                str = str.replace(r, '$1' + '-' + '$2');
+            }
+
+            e.target.value = str.slice(0, 17);
+        };
+
+        macAddress.addEventListener("keyup", formatMAC, false);
+    </script>
 @endsection

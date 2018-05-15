@@ -82,25 +82,25 @@
             </div>
             <div class="dashboard-menu">
                 <ul class="menu-list">
-      @if(Request::path()=='home')<li class=active>@else <li> @endif <a href="{{url('/')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons" >home</i> &nbsp;<span class="text">Home </span></a></li>
+      @if(strpos(Request::path(),'home') !== false)<li class=active>@else <li> @endif <a href="{{url('/')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons" >home</i> &nbsp;<span class="text">Home </span></a></li>
                     <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">developer_board</i> &nbsp;<span class="text"> Gérer les équipements </span><i class="material-icons">arrow_drop_down</i></a>
                     <ul id="1111" class="sub-menu ">
-                        @if(Request::path()=='gerer_equipements/Ajout')<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
-                        @if(Request::path()=='gerer_equipements/Consulter')<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Consulter')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Consulter</span></a></li>
+                        @if(strpos(Request::path(),'gerer_equipements/Ajout') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
+                        @if(strpos(Request::path(),'gerer_equipements/Consulter') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Consulter')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Consulter</span></a></li>
                     </ul>
                     </li>
                     <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">assessment</i> &nbsp;<span class="text"> Services </span><i class="material-icons">arrow_drop_down</i></a>
                         <ul id="2222" class="sub-menu ">
-                            @if(Request::path()=='consulter_services/TableauxDeBords')<li class=active>@else <li> @endif<a href="{{url('/consulter_services/TableauxDeBords')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Tableau De Bord</span></a></li>
-                            @if(Request::path()=='consulter_services/Statistiques')<li class=active>@else <li> @endif<a href="{{url('/consulter_services/Statistiques')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Statistiques</span></a></li>
+                            @if(strpos(Request::path(),'consulter_services/TableauxDeBords') !== false)<li class=active>@else <li> @endif<a href="{{url('/consulter_services/TableauxDeBords')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Tableau De Bord</span></a></li>
+                            @if(strpos(Request::path(),'consulter_services/Statistiques') !== false)<li class=active>@else <li> @endif<a href="{{url('/consulter_services/Statistiques')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Statistiques</span></a></li>
                         </ul>
                     </li>
                     <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">supervisor_account</i> &nbsp;<span class="text"> Gérer les utilisateurs </span><i class="material-icons">arrow_drop_down</i></a>
                         <ul id="3333" class="sub-menu ">
-                            @if(Request::path()=='gerer_utilisateurs/Ajout')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
-                            @if(Request::path()=='gerer_utilisateurs/Modifier')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Modifier')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Modifier</span></a></li>
-                            @if(Request::path()=='gerer_utilisateurs/Historique')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Historique')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Historique</span></a></li>
-                            @if(Request::path()=='gerer_utilisateurs/Supprimer')<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Supprimer')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Supprimer</span></a></li>
+                            @if(strpos(Request::path(),'gerer_utilisateurs/Ajout') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
+                            @if(strpos(Request::path(),'gerer_utilisateurs/Modifier') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Modifier')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Modifier</span></a></li>
+                            @if(strpos(Request::path(),'gerer_utilisateurs/Historique') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Historique')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Historique</span></a></li>
+                            @if(strpos(Request::path(),'gerer_utilisateurs/Supprimer') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Supprimer')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Supprimer</span></a></li>
                         </ul>
                     </li>
                     </ul>

@@ -1,19 +1,22 @@
 @extends('layouts.newapp')
 @section('content')
-    <h1>Confirmer l'ajout</h1>
-    {!! Form::open(['action' => 'Auth\RegisterController@finalregister', 'method' => 'POST']) !!}
     <div class="form-group" align="center">
-        <div class="col-sm-2">
-           <b> {{Form::label('username','username:')}} </b>
+        <h4>Confirmer l'ajout</h4><i class="material-icons" style="font-size:36px;">verified_user</i>
+        <br><br>
+    </div>
+    {!! Form::open(['action' => 'Auth\RegisterController@finalregister', 'method' => 'POST']) !!}
+    <div class="form-group" >
+        <div class="well">
+           <b> {{Form::label('username',"Nom d'utilisateur : ")}} </b>
             {{$finalrequest['username']}}<br>
         </div>
 
-        <div class="col-sm-2">
-            <b>{{Form::label('password','password:')}} </b>
+        <div class="well">
+            <b>{{Form::label('password','Mot de passe : ')}} </b>
             {{$finalrequest['password']}}<br>
         </div>
-        <div class="col-sm-2">
-            <b>{{Form::label('droit','Droits attribués')}} </b><br>
+        <div class="well">
+            <b>{{Form::label('droit','Droits attribués : ')}} </b><br>
 
                    @if($finalrequest[1]) -AJOUT EQUIPEMENT<br> @endif
                    @if($finalrequest[2]) -MODIFIER EQUIPEMENT<br> @endif
@@ -34,8 +37,16 @@
         <input type="hidden" name="droit4" value="{{$finalrequest['4']}}">
         <input type="hidden" name="droit5" value="{{$finalrequest['5']}}">
         <input type="hidden" name="droit6" value="{{$finalrequest['6']}}">
-        {{Form::submit('Confirmer',['class'=>'btn btn-primary'])}}
-        <a href={{url('gerer_utilisateurs/Ajout')}}><input type="button" value="Annuler" class="btn btn-primary"></a>
+        <div align="center">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--colored">
+                <i class="material-icons" style="font-size:18px;">
+                    done
+                </i> Confirmer
+            </button>
+        <a href={{url('gerer_utilisateurs/Ajout')}}><input type="button" class="mdl-button mdl-js-button mdl-button--colored"><i class="material-icons" style="font-size:18px;">
+                clear
+            </i>Annuler</a>
+        </div>
     </div>
 
     {!! Form::close() !!}

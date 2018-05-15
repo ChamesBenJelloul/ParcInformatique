@@ -52,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'personnel' => 'required|string|max:255',
-        ]);
+        ], ['personnel.required' => 'Veuillez choisir un personnel']);
     }
 
     /**

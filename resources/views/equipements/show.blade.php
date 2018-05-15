@@ -42,7 +42,7 @@
         </button>
     </div>
     {!! Form::close()!!}
-    </div>
+
 
 
 @endsection

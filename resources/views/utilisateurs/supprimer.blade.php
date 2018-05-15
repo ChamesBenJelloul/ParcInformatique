@@ -1,8 +1,10 @@
 @extends('layouts.newapp')
 
 @section('content')
-
-    <h3>SUPPRIMER UTILISATEUR</h3>
+    <div class="form-group" align="center">
+        <h4>SUPPRIMER UN UTILISATEUR</h4><i class="material-icons" style="font-size:36px;">person_outline</i>
+        <br><br>
+    </div>
     {!! Form::open(['action' => 'GererUtilisateursController@finalSupprimer', 'method' => 'POST']) !!}
     <div class="form-group" align="center">
         {{Form::label('utilisateur','Choisir un utilisateur')}}<br>
@@ -15,7 +17,8 @@
                     <option value="{{$user->id}}">{{$user->username}}</option>
                 @endforeach
             </select>
-            {{Form::submit('Supprimer!',['class'=>'btn btn-primary'])}}
+            <br>
+            {{Form::submit('Supprimer!',['class'=>'mdl-button mdl-js-button mdl-button--colored'])}}
         </div>
     </div>
     {!! Form::close() !!}

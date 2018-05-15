@@ -23,6 +23,10 @@ class GererUtilisateursController extends Controller
         return view('utilisateurs.modifier')->with('users',$users);
     }
     public function modifierForm(Request $request){
+        $this->validate($request,
+        ['utilisateur' => 'required'],
+        ['utilisateur.required' => 'Veuillez choisir une option']);
+
         $user=User::find($request->utilisateur);
         $droits=$user->droits()->get();
         $droitbyid=array();
@@ -68,6 +72,9 @@ class GererUtilisateursController extends Controller
         return view('utilisateurs.supprimer')->with('users',$users);
     }
     public function finalSupprimer(Request $request){
+        $this->validate($request,
+            ['utilisateur' => 'required'],
+            ['utilisateur.required' => 'Veuillez choisir une option']);
         $user=User::find($request->utilisateur);
         $user->droits()->detach();
         $user->delete();

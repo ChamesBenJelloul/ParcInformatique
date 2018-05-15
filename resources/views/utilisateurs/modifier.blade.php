@@ -1,8 +1,10 @@
 @extends('layouts.newapp')
 
 @section('content')
-
-    <h3>MODIFIER UTILISATEUR</h3>
+    <div class="form-group" align="center">
+        <h4>MODIFIER UN UTILISATEUR</h4><i class="material-icons" style="font-size:36px;">account_circle</i>
+        <br><br>
+    </div>
     {!! Form::open(['action' => 'GererUtilisateursController@modifierForm', 'method' => 'POST']) !!}
     <div class="form-group" align="center">
         {{Form::label('utilisateur','Choisir un utilisateur')}}<br>
@@ -15,7 +17,12 @@
                     <option value="{{$user->id}}">{{$user->username}}</option>
                 @endforeach
             </select>
-            {{Form::submit('Choisir',['class'=>'btn btn-primary'])}}
+            <br><br>
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--colored">
+                <i class="material-icons">
+                    build
+                </i> Choisir
+            </button>
         </div>
     </div>
     {!! Form::close() !!}

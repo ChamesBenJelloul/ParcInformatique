@@ -4332,16 +4332,16 @@ input.mdl-button[type="submit"] {
     left: 0;
     height: 100%;
     width: 100%;
-    -webkit-mask: url("/images/tick-mask.svg?embed");
-    mask: url("/images/tick-mask.svg?embed");
+    -webkit-mask: url("../img/tick-mask.svg?embed");
+    mask: url("../img/tick-mask.svg?embed");
     background: transparent;
     transition-duration: 0.28s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-property: background; }
 .mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
-    background: rgb(63,81,181) url("/images/tick.svg?embed"); }
+    background: rgb(63,81,181) url("../img/tick.svg?embed"); }
 .mdl-checkbox.is-checked.is-disabled .mdl-checkbox__tick-outline {
-    background: rgba(0,0,0, 0.26) url("/images/tick.svg?embed"); }
+    background: rgba(0,0,0, 0.26) url("../img/tick.svg?embed"); }
 
 .mdl-checkbox__label {
     position: relative;
