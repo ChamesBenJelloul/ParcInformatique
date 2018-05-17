@@ -82,19 +82,24 @@
             </div>
             <div class="dashboard-menu">
                 <ul class="menu-list">
-      @if(strpos(Request::path(),'home') !== false)<li class=active>@else <li> @endif <a href="{{url('/')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons" >home</i> &nbsp;<span class="text">Home </span></a></li>
-                    <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">developer_board</i> &nbsp;<span class="text"> Gérer les équipements </span><i class="material-icons">arrow_drop_down</i></a>
+      @if((strpos(Request::path(),'home') !== false)||(strpos(Request::path(),'password_reset') !== false))<li class=active>@else <li> @endif <a href="{{url('/')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons" >home</i> &nbsp;<span class="text">Home </span></a></li>
+                    @if(Auth::user()->hasAnyRole(['AJOUT EQUIPEMENT','CONSULTER EQUIPEMENT']))
+                        <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">developer_board</i> &nbsp;<span class="text"> Gérer les équipements </span><i class="material-icons">arrow_drop_down</i></a>
                     <ul id="1111" class="sub-menu ">
-                        @if(strpos(Request::path(),'gerer_equipements/Ajout') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
-                        @if(strpos(Request::path(),'gerer_equipements/Consulter') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Consulter')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Consulter</span></a></li>
+                       @if(Auth::user()->hasRole('AJOUT EQUIPEMENT')) @if(strpos(Request::path(),'gerer_equipements/Ajout') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>@endif
+                        @if(Auth::user()->hasRole('CONSULTER EQUIPEMENT'))@if(strpos(Request::path(),'gerer_equipements/Consulter') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_equipements/Consulter')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Consulter</span></a></li>@endif
                     </ul>
                     </li>
+                    @endif
+                @if(Auth::user()->hasAnyRole(['TABLEAUX DE BORDS','STATISTIQUES']))
                     <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">assessment</i> &nbsp;<span class="text"> Services </span><i class="material-icons">arrow_drop_down</i></a>
                         <ul id="2222" class="sub-menu ">
-                            @if(strpos(Request::path(),'consulter_services/TableauxDeBords') !== false)<li class=active>@else <li> @endif<a href="{{url('/consulter_services/TableauxDeBords')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Tableau De Bord</span></a></li>
-                            @if(strpos(Request::path(),'consulter_services/Statistiques') !== false)<li class=active>@else <li> @endif<a href="{{url('/consulter_services/Statistiques')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Statistiques</span></a></li>
+                            @if(Auth::user()->hasRole('TABLEAUX DE BORDS'))@if(strpos(Request::path(),'consulter_services/TableauxDeBords') !== false)<li class=active>@else <li> @endif<a href="{{url('/consulter_services/TableauxDeBords')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Tableau De Bord</span></a></li>@endif
+                            @if(Auth::user()->hasRole('STATISTIQUES'))@if(strpos(Request::path(),'consulter_services/Statistiques') !== false)<li class=active>@else <li> @endif<a href="{{url('/consulter_services/Statistiques')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Statistiques</span></a></li>@endif
                         </ul>
                     </li>
+                        @endif
+                            @if(Auth::user()->isAdmin())
                     <li class="show-subnav" ><a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect show-menu"><i class="material-icons">supervisor_account</i> &nbsp;<span class="text"> Gérer les utilisateurs </span><i class="material-icons">arrow_drop_down</i></a>
                         <ul id="3333" class="sub-menu ">
                             @if(strpos(Request::path(),'gerer_utilisateurs/Ajout') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Ajout')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Ajouter</span></a></li>
@@ -103,6 +108,7 @@
                             @if(strpos(Request::path(),'gerer_utilisateurs/Supprimer') !== false)<li class=active>@else <li> @endif<a href="{{url('/gerer_utilisateurs/Supprimer')}}" class="mdl-button mdl-js-button mdl-js-ripple-effect"><span class="text">Supprimer</span></a></li>
                         </ul>
                     </li>
+                            @endif
                     </ul>
             </div>
         </div>
@@ -117,9 +123,25 @@
                @yield('content')
                </main>
            </div>
+            @if((strpos(Request::path(),'home') !== false)||(strpos(Request::path(),'password_reset') !== false))
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href={{url('/about')}}>À propos OACA</a></li>
+                        <li align="right">OACA©2018</li>
+                        <li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li>
+                        <li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li>
+                        <li> </li><li> </li><li> </li><li> </li><li>  </li><li> </li><li> </li><li> </li><li> </li><li> </li><li> </li>
+                        <li><small>Développé par Chames Eddine Ben Jelloul</small></li>
+                    </ul>
+                </div>
+            </footer>
+                @endif
         </div>
     </main>
+
 </div>
+
 
 
 <script src="{{ asset('js/custom1.js') }}" type="text/javascript"></script>

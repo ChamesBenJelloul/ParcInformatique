@@ -28,6 +28,9 @@ class ConsulterServicesController extends Controller
         return view('services.statistiques')->with('personnels',$personnels);
     }
     public function Showstatistiques(Request $request){
+        $this->validate($request,[
+         'element' => 'required'
+        ],['element.required' => 'Veuillez choisir un element' ]);
        $lava = new Lavacharts;
         $finances = \Lava::DataTable();
         $startdate=strtotime("tomorrow");

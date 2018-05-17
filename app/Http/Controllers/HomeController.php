@@ -32,7 +32,10 @@ class HomeController extends Controller
     public function reset(Request $request){
      $request->validate([
          'password' => 'required|min:8|same:password2',
-
+     ],[
+         'password.required' => 'Le champ de mot de passe est requis.',
+         'password.min' => 'Le mot de passe doit comporter au moins 8 caractères.',
+         'password.same' => 'Les mots de passe saisis ne sont pas identiques. ',
      ]);
      $user=User::find(auth()->user()->id);
      $user->password=bcrypt($request->password);

@@ -25,21 +25,24 @@
         <tr><td>Adresse Physique-Mac</td><td>{{$equipement["Adresse Physique"]}}</td></tr>
         <tr><td>Ajouté le</td><td>{{$equipement->created_at}}</td></tr>
     </table>
+    @if(Auth::user()->hasRole('MODIFIER EQUIPEMENT'))
     <a href="{{$equipement->id}}/Modifier">
     <button class="mdl-button mdl-js-button mdl-button--colored">
         <i class="material-icons">
             build
         </i> Modifier
-    </button></a>
+    </button></a>@endif
     {!!Form::open(['action' => ['GererEquipementsController@destroy',$equipement->id], 'method' => 'POST' , 'class' => 'pull-right']) !!}
     {{Form::hidden('_method','DELETE')}}
     <div style="float: right;">
+        @if(Auth::user()->hasRole('SUPPRIMER EQUIPEMENT'))
         <button type="submit" class="mdl-button mdl-js-button mdl-button--colored">
             <i class="material-icons">
                 delete_sweep
             </i>
             Supprimer
         </button>
+            @endif
     </div>
     {!! Form::close()!!}
 

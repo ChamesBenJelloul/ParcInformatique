@@ -1,14 +1,16 @@
 @extends('layouts.newapp')
 
 @section('content')
-
-    <h3>STATISTIQUES</h3>
+    <div class="form-group" align="center">
+        <h4>STATISTIQUES</h4><i class="material-icons" style="font-size:36px;">assessment</i>
+        <br><br>
+    </div>
     {!! Form::open(['action' => 'ConsulterServicesController@Showstatistiques', 'method' => 'POST']) !!}
     <div class="form-group" align="center">
         {{Form::label('élément','Elément')}}
         <div class="col-sm-2">
         <select class="form-control input-sm" name="element" id="element">
-            <option selected="selected" value="aa">
+            <option selected="selected" value="">
 
             </option>
             <option value="equipement">les équipements les plus utilisés</option>
