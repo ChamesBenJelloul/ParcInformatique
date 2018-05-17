@@ -37,7 +37,7 @@ class GererEquipementsController extends Controller
         return view('equipements.consulter')->with('equipements',$equipements);
     }
     public function ConsulterParId(Request $request){
-        $equipement=Equipement::where('Numéro de série',$request->Numéro_de_série)->first();
+        $equipement=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('ConfirmerParAdmin','1')->first();
         return view('equipements.consulterParId')->with('equipement',$equipement);
 
     }

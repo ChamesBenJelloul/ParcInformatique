@@ -22,7 +22,7 @@ class CreateEquipementsTable extends Migration
             $table->string('type')->nullable();
             $table->string('code du marché')->nullable();
             $table->string('numéro contrat de maintenance')->default('Optionnel');
-            $table->longText('Contrat de maintenance détaillé')->default('Optionnel');
+            $table->longText('Contrat de maintenance détaillé');
             $table->integer('personnel_id');
             $table->boolean('ConfirmerParAdmin')->nullable();
             $table->boolean('Modification')->default(false);

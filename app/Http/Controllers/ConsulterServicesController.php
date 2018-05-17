@@ -20,8 +20,14 @@ class ConsulterServicesController extends Controller
         }*/
         exec("arp -a", $output, $result);
         $list=implode("",$output);
-        $equipements=Equipement::where('Adresse Physique','!=','0')->get();
+        $equipements=Equipement::where('Adresse Physique','!=','0')->where('ConfirmerParAdmin','1')->get();
         return view('services.tableauxdebords')->with('equipements',$equipements)->with('list',$list);
+    }
+    public function ConsulterParId(Request $request){
+        exec("arp -a", $output, $result);
+        $list=implode("",$output);
+        $equipement=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('ConfirmerParAdmin','1')->first();
+        return view('services.TBparid')->with('equipement',$equipement)->with('list',$list);
     }
     public function Statistiques(){
         $personnels=Personnel::all();

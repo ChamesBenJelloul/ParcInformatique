@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="card-header">
-                    <a href={{url('/')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
+                    <a href={{url('/gerer_equipements/Ajout')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
                                 reply
                             </i>AJOUTER DES éQUIPEMENTS</button></a>
                 </div>
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="card-header">
-                    <a href={{url('/')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
+                    <a href={{url('/gerer_equipements/Consulter')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
                                 reply
                             </i>CONSULTER DES éQUIPEMENTS</button></a>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="card-header">
-                    <a href={{url('/')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
+                    <a href={{url('/consulter_services/TableauxDeBords')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
                                 reply
                             </i>TABLEAU DE BORD</button></a>
                 </div>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="card-header">
-                    <a href={{url('/')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
+                    <a href={{url('/consulter_services/Statistiques')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
                                 reply
                             </i>STATISTIQUES</button></a>
                 </div>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="card-header">
-                    <a href={{url('/')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
+                    <a href={{url('/gerer_utilisateurs/Historique')}}><button class="mdl-button mdl-js-button mdl-button--colored" ><i class="material-icons" style="font-size:18px;">
                                 reply
                             </i>Gérer les utilisateurs</button></a>
                 </div>
