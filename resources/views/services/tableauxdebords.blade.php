@@ -73,7 +73,7 @@
                     <img src={{asset('img/Inactif.png')}} height=50px width="50px">
                 @endif
                <br> <small>№ Série: {{$equipement["Numéro de série"]}}</small>
-                @if(strpos($list,strtolower ($equipement["Adresse Physique"]))) <br> <small>Adresse IP : {{substr($list,strpos($list,$equipement["Adresse Physique"])-22,12)}}</small> @endif
+                @if(strpos($list,strtolower ($equipement["Adresse Physique"]))) <br> <small>Adresse IP : {{substr($list,strpos($list,strtolower($equipement["Adresse Physique"]))-22,12)}}</small> @endif
                <br> <small>Adresse MAC : {{$equipement["Adresse Physique"]}}</small>
                <br> <small>Occupant : {{$equipement->personnel['nom']." ".$equipement->personnel['nom']}}</small>
             <br><br>
@@ -81,5 +81,4 @@
         @endforeach
     </div>
 </div>
-
 @endsection

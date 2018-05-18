@@ -24,6 +24,9 @@ class ConsulterServicesController extends Controller
         return view('services.tableauxdebords')->with('equipements',$equipements)->with('list',$list);
     }
     public function ConsulterParId(Request $request){
+        if($request->Numéro_de_série==""){
+            return redirect('/consulter_services/TableauxDeBords');
+        }
         exec("arp -a", $output, $result);
         $list=implode("",$output);
         $equipement=Equipement::where('Numéro de série',$request->Numéro_de_série)->where('ConfirmerParAdmin','1')->first();
@@ -157,7 +160,7 @@ class ConsulterServicesController extends Controller
             $mydate=date("Y-m-d", $startdate);
             $finances->addStringColumn('Equipements')
                 ->addNumberColumn('nombre d\'équipements');
-                $finances->addRow([$mydate,  $req1->nbr]);
+                $finances->addRow([$mydate,  $req1[0]->nbr]);
             \LAVA::ColumnChart('Finances', $finances, [
                 'title' => 'Nombre d\'équipements en total',
                 'titleTextStyle' => [
